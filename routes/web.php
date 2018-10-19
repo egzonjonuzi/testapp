@@ -11,8 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::resource('shopingCart','shopingCartController');
+Route::resource('/','ShoppingController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+//Shopping 
+
+ Route::group(array('prefix' => 'shopping'), function()
+    {
+       Route::get('/', 'ShoppingController@get_shopping_products')->name('products');
+       Route::post('/', 'ShoppingController@post_shopping_products')->name('products_post');
+
+       Route::get('/contact', 'ShoppingController@shopping_client_information')->name('contact');
+       
+    //   Route::get('/products', 'HomeController@index')->name('products');
+    });
